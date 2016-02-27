@@ -66,7 +66,59 @@ class AdressController extends Controller {
             $em->flush();
         }
 
-        return new Response('Address created');
+        //return new Response('Address created');
+        return $this->redirectToRoute('showPerson', ['id' => $personId]);
+    }
+
+    /**
+     * @Route("/modifyAddress/{addressId}/{personId}", name = "modifyAddress")
+     * @Method("GET")
+     * @Template()
+     */
+    public function modifyAddressAction($addressId, $personId) {
+        $repo = $this->getDoctrine()->getRepository('CodersLabBundle:Adress');
+        $address = $repo->find($addressId);
+
+        $action = $this->generateUrl('modifyAddress', ['addressId' => $addressId, 'personId' =>$personId]);
+        $addressForm = $this->generateFormAddress($address, $action);
+
+        return ['form' => $addressForm->createView()];
+    }
+
+    /**
+     * @Route("/modifyAddress/{addressId}/{personId}", name = "modifyAddressSave")
+     * @Method("POST")
+     */
+    public function modifyAddressSaveAction(Request $req, $addressId, $personId) {
+        $repo = $this->getDoctrine()->getRepository('CodersLabBundle:Adress');
+        $address = $repo->find($addressId);
+
+        $action = $this->generateUrl('modifyAddress', ['addressId' => $addressId, 'personId' =>$personId]);
+        $addressForm = $this->generateFormAddress($address, $action);
+
+        $addressForm->handleRequest($req);
+
+        if ($addressForm->isSubmitted()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($address);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('showPerson', ['id' => $personId]);
+    }
+
+    /**
+     * @Route("/deleteAddress/{addressId}/{personId}", name ="deleteAddress")
+     */
+    public function deletePersonAction($addressId, $personId) {
+        $repo = $this->getDoctrine()->getRepository('CodersLabBundle:Adress');
+        $person = $repo->find($addressId);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($person);
+        $em->flush();
+
+        return $this->redirectToRoute('showPerson', ['id' => $personId]);
     }
 
     /**
