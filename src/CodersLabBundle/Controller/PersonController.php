@@ -64,12 +64,26 @@ class PersonController extends Controller {
         return $this->redirectToRoute('showPerson', ['id' => $id]);
     }
 
-    //TODO modify add POST AND GET method
     /**
      * @Route("/modifyPerson/{id}", name ="modifyPerson")
+     * @Method("GET")
      * @Template()
      */
-    public function modifyPersonAction(Request $req, $id) {
+    public function modifyPersonAction($id) {
+        $repo = $this->getDoctrine()->getRepository('CodersLabBundle:Person');
+        $person = $repo->find($id);
+
+        $action = $this->generateUrl('modifyPerson', ['id' => $id]);
+        $personForm = $this->generateFormPerson($person, $action);
+
+        return ['form' => $personForm->createView()];
+    }
+
+    /**
+     * @Route("/modifyPerson/{id}", name ="modifyPersonSave")
+     * @Method("POST")
+     */
+    public function modifyPersonSaveAction(Request $req, $id) {
         $repo = $this->getDoctrine()->getRepository('CodersLabBundle:Person');
         $person = $repo->find($id);
 
@@ -84,7 +98,7 @@ class PersonController extends Controller {
             $em->flush();
         }
 
-        return ['form' => $personForm->createView()];
+        return $this->redirectToRoute('showPerson', ['id' => $id]);
     }
 
     /**

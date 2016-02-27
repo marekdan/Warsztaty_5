@@ -1,7 +1,23 @@
 <h1>{{ person.name }}</h1>
 Surname: {{ person.surname }}<br>
-Description: {{ person.description }}<br>
+Description: {{ person.description }}<br><br>
+<hr>
 
-<h4>What do u want to do:</h4>
+<h4>Addresses:</h4>
+<ul>
+    {% for addres in person.adresses %}
+        <li>
+            {{ addres.city }}
+        </li>
+    {% endfor %}
+</ul>
+<a href="{{ path('newAddress',{'personId':person.id}) }}">Add Address</a><br>
+<hr>
 
-<a href="{{ path('newAddress',{'personId':person.id}) }}">Create Address</a><br>
+<h4>Emails:</h4>
+<a href="{{ path('newAddress',{'personId':person.id}) }}">Add Address</a><br>
+<hr>
+
+<h4>Phones:</h4>
+<a href="{{ path('newAddress',{'personId':person.id}) }}">Add Address</a><br>
+<hr>
