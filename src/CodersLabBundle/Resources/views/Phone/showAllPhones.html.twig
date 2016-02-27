@@ -1,0 +1,6 @@
+{% for phone in phones %}
+    {% include 'CodersLabBundle:Phone:showPhone.html.twig' with {'phone': phone} %}
+    <hr>
+{% else %}
+    Phones doesn't exist's
+{% endfor %}

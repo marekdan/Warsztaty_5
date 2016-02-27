@@ -1,0 +1,6 @@
+{% for email in emails %}
+    {% include 'CodersLabBundle:Email:showEmail.html.twig' with {'email': email} %}
+    <hr>
+{% else %}
+    Emails doesn't exist's
+{% endfor %}

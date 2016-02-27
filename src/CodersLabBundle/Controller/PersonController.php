@@ -102,7 +102,7 @@ class PersonController extends Controller {
     }
 
     /**
-     * @Route("/deletePerson/{id}")
+     * @Route("/deletePerson/{id}", name = "deletePerson")
      */
     public function deletePersonAction($id) {
         $repo = $this->getDoctrine()->getRepository('CodersLabBundle:Person');
@@ -127,7 +127,7 @@ class PersonController extends Controller {
     }
 
     /**
-     * @Route("/showAll")
+     * @Route("/showAll", name = "showAll")
      * @Template()
      */
     public function showAllPersonAction() {

@@ -2,32 +2,25 @@
 Name: <strong>{{ person.name }}</strong><br>
 Surname: <strong>{{ person.surname }}</strong><br>
 Description: <strong>{{ person.description }}</strong><br><br>
+<a href="{{ path('modifyPerson',{'id':person.id}) }}">EDIT YOUR PROFILE</a>
 <hr>
 
 <h4>Addresses:</h4>
-<ul>
-    {% for addres in person.adresses %}
-        <li>
-            <a href="{{ path('modifyAddress',{'addressId':addres.id, 'personId':person.id}) }}">EDIT</a>
-            <a href="{{ path('deleteAddress',{'addressId':addres.id, 'personId':person.id}) }}">DELETE</a>
-            <ul>
-                <li>City: {{ addres.city }}<br></li>
-                <li>Street: {{ addres.street }}<br></li>
-                <li>House Number: {{ addres.houseNumber }}<br></li>
-                <li>Flat Number: {{ addres.flatNumber }}<br></li>
-            </ul>
-        </li>
-    {% else %}
-        Nothing to show
-    {% endfor %}
-</ul>
+{% include 'CodersLabBundle:Adress:showAddressesForPerson.html.twig' with {'person': person} %}
 <a href="{{ path('newAddress',{'personId':person.id}) }}">Add Address</a><br>
 <hr>
 
+
 <h4>Emails:</h4>
-<a href="{{ path('newAddress',{'personId':person.id}) }}">Add Email</a><br>
+{% include 'CodersLabBundle:Email:showEmailsForPerson.html.twig' with {'person': person} %}
+<a href="{{ path('newEmail',{'personId':person.id}) }}">Add Email</a><br>
 <hr>
 
+
 <h4>Phones:</h4>
-<a href="{{ path('newAddress',{'personId':person.id}) }}">Add Phone</a><br>
+{% include 'CodersLabBundle:Phone:showPhonesForPerson.html.twig' with {'person': person} %}
+<a href="{{ path('newPhone',{'personId':person.id}) }}">Add Phone</a><br>
 <hr>
+
+
+<a href="{{ path('showAll') }}">BACK TO MAIN SITE</a>

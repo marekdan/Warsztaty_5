@@ -20,7 +20,6 @@ class AdressController extends Controller {
         $form->add('houseNumber', 'text');
         $form->add('flatNumber', 'text');
         $form->add('save', 'submit', ['label' => 'Submit']);
-
         $form->setAction($action);
 
         $addressForm = $form->getForm();
@@ -52,7 +51,6 @@ class AdressController extends Controller {
 
         $action = $this->generateUrl('newAddress', ['personId' => $personId]);
         $form = $this->generateFormAddress($address, $action);
-
         $form->handleRequest($req);
 
         if ($form->isSubmitted()) {
@@ -66,7 +64,6 @@ class AdressController extends Controller {
             $em->flush();
         }
 
-        //return new Response('Address created');
         return $this->redirectToRoute('showPerson', ['id' => $personId]);
     }
 
@@ -79,7 +76,7 @@ class AdressController extends Controller {
         $repo = $this->getDoctrine()->getRepository('CodersLabBundle:Adress');
         $address = $repo->find($addressId);
 
-        $action = $this->generateUrl('modifyAddress', ['addressId' => $addressId, 'personId' =>$personId]);
+        $action = $this->generateUrl('modifyAddress', ['addressId' => $addressId, 'personId' => $personId]);
         $addressForm = $this->generateFormAddress($address, $action);
 
         return ['form' => $addressForm->createView()];
@@ -93,7 +90,7 @@ class AdressController extends Controller {
         $repo = $this->getDoctrine()->getRepository('CodersLabBundle:Adress');
         $address = $repo->find($addressId);
 
-        $action = $this->generateUrl('modifyAddress', ['addressId' => $addressId, 'personId' =>$personId]);
+        $action = $this->generateUrl('modifyAddress', ['addressId' => $addressId, 'personId' => $personId]);
         $addressForm = $this->generateFormAddress($address, $action);
 
         $addressForm->handleRequest($req);
@@ -110,7 +107,7 @@ class AdressController extends Controller {
     /**
      * @Route("/deleteAddress/{addressId}/{personId}", name ="deleteAddress")
      */
-    public function deletePersonAction($addressId, $personId) {
+    public function deleteAddressAction($addressId, $personId) {
         $repo = $this->getDoctrine()->getRepository('CodersLabBundle:Adress');
         $person = $repo->find($addressId);
 
@@ -143,4 +140,14 @@ class AdressController extends Controller {
         return ['addresses' => $addresses];
     }
 
+    /**
+     * @Route("/showAddressesForPerson/{personId}")
+     * @Template()
+     */
+    public function showAddressesForPersonAction($personId){
+        $repo = $this->getDoctrine()->getRepository('CodersLabBundle:Person');
+        $person = $repo->find($personId);
+
+        return ['person' => $person];
+    }
 }
