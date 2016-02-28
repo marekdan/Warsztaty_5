@@ -4,7 +4,7 @@
             <a href="{{ path('modifyPhone',{'phoneId':phone.id, 'personId':person.id}) }}">EDIT</a>
             <a href="{{ path('deletePhone',{'phoneId':phone.id, 'personId':person.id}) }}">DELETE</a>
             <ul>
-                <li>Email address: {{ phone.emailAdress }}<br></li>
+                <li>Phone number: {{ phone.phoneNumber }}<br></li>
                 <li>Type: {{ phone.Type }}<br></li>
             </ul>
         </li>

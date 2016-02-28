@@ -1,14 +1,12 @@
-<ul>
-    {% for email in person.emails %}
-        <li>
-            <a href="{{ path('modifyEmail',{'emailsId':email.id, 'personId':person.id}) }}">EDIT</a>
-            <a href="{{ path('deleteEmail',{'emailsId':email.id, 'personId':person.id}) }}">DELETE</a>
-            <ul>
-                <li>Email address: {{ email.emailAdress }}<br></li>
-                <li>Type: {{ email.Type }}<br></li>
-            </ul>
-        </li>
-    {% else %}
-        Nothing to show
-    {% endfor %}
-</ul>
+{% for email in person.emails %}
+    <li>
+        <a href="{{ path('modifyEmail',{'emailId':email.id, 'personId':person.id}) }}">EDIT</a>
+        <a href="{{ path('deleteEmail',{'emailId':email.id, 'personId':person.id}) }}">DELETE</a>
+        <ul>
+            <li>Email address: {{ email.emailAdress }}<br></li>
+            <li>Type: {{ email.Type }}<br></li>
+        </ul>
+    </li>
+{% else %}
+    Nothing to show
+{% endfor %}

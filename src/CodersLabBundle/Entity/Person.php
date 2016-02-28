@@ -49,12 +49,12 @@ class Person {
     private $adresses;
 
     /**
-     * @ORM\OneToOne(targetEntity = "Phone", mappedBy="person")
+     * @ORM\OneToMany(targetEntity = "Phone", mappedBy="person")
      */
     private $phones;
 
     /**
-     * @ORM\OneToOne(targetEntity = "Email", mappedBy="person")
+     * @ORM\OneToMany(targetEntity = "Email", mappedBy="person")
      */
     private $emails;
 
