@@ -1,7 +1,15 @@
-{% for person in persons %}
-    {% include 'CodersLabBundle:Person:showPersonLink.html.twig' with {'person': person} %}
+{% if app.user is not null %}
+    You are logged as: {{ app.user.username }}
+    <a href="{{ path('fos_user_security_logout') }}">LOGOUT</a><br>
     <hr>
-{% else %}
-    Users doesn't exist's
-{% endfor %}
-<a href="{{ path('newPerson')}}">+add new person</a><br>
+
+    {% for person in persons %}
+        {% include 'CodersLabBundle:Person:showPersonLink.html.twig' with {'person': person} %}
+        <hr>
+    {% else %}
+        Users doesn't exist's
+    {% endfor %}
+    <a href="{{ path('newPerson') }}">+add new person</a><br>
+    {% else %}
+        <a href="{{ path('fos_user_security_login') }}">LOGIN</a><br>
+{% endif %}

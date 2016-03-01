@@ -28,14 +28,14 @@ class UserController extends Controller
      */
     public function indexAction()
     {
-//        $em = $this->getDoctrine()->getManager();
-//
-//        $entities = $em->getRepository('CodersLabBundle:User')->findAll();
-//
-//        return array(
-//            'entities' => $entities,
-//        );
-        return $this->redirectToRoute('');
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('CodersLabBundle:User')->findAll();
+
+        return array(
+            'entities' => $entities,
+        );
+        //return $this->redirectToRoute('showAll');
     }
     /**
      * Creates a new User entity.
@@ -246,4 +246,5 @@ class UserController extends Controller
             ->getForm()
         ;
     }
+
 }

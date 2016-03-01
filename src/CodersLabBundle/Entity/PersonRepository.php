@@ -13,4 +13,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class PersonRepository extends EntityRepository {
 
+    public function findByUser(User $user) {
+        $ret = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('m')
+            ->from('CodersLabBundle:Person', 'm')
+            ->innerJoin('m.users', 'e')
+            ->where('e.id = :userId')
+            ->setParameter('userId', $user->getId())
+            ->getQuery()
+            ->getResult();
+
+        return $ret;
+    }
 }

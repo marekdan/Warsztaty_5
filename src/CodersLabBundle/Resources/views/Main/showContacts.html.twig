@@ -1,0 +1,10 @@
+{% for person in persons %}
+    ID: {{ person.id }}<br>
+    ID: {{ person.name }}<br>
+    ID: {{ person.surname }}<br>
+    {#{% for phone in person.phones %}#}
+        {#{{ phone.phoneNumber }}#}
+    {#{% endfor %}#}
+{% else %}
+    No persons
+{% endfor %}

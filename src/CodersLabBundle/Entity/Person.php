@@ -59,6 +59,12 @@ class Person {
     private $emails;
 
     /**
+     * @ORM\ManyToMany(targetEntity = "User", inversedBy = "persons")
+     * @ORM\JoinTable(name = "person_users")
+     */
+    private $users;
+
+    /**
      * Get id
      *
      * @return integer
@@ -194,13 +200,6 @@ class Person {
     }
 
     /**
-     * Constructor
-     */
-    public function __construct() {
-        $this->adresses = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
      * Add adresses
      *
      * @param \CodersLabBundle\Entity\Adress $adresses
@@ -219,5 +218,91 @@ class Person {
      */
     public function removeAdress(\CodersLabBundle\Entity\Adress $adresses) {
         $this->adresses->removeElement($adresses);
+    }
+
+    /**
+     * Add phones
+     *
+     * @param \CodersLabBundle\Entity\Phone $phones
+     * @return Person
+     */
+    public function addPhone(\CodersLabBundle\Entity\Phone $phones) {
+        $this->phones[] = $phones;
+
+        return $this;
+    }
+
+    /**
+     * Remove phones
+     *
+     * @param \CodersLabBundle\Entity\Phone $phones
+     */
+    public function removePhone(\CodersLabBundle\Entity\Phone $phones) {
+        $this->phones->removeElement($phones);
+    }
+
+    /**
+     * Add emails
+     *
+     * @param \CodersLabBundle\Entity\Email $emails
+     * @return Person
+     */
+    public function addEmail(\CodersLabBundle\Entity\Email $emails) {
+        $this->emails[] = $emails;
+
+        return $this;
+    }
+
+    /**
+     * Remove emails
+     *
+     * @param \CodersLabBundle\Entity\Email $emails
+     */
+    public function removeEmail(\CodersLabBundle\Entity\Email $emails) {
+        $this->emails->removeElement($emails);
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->adresses = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->phones = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->emails = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add users
+     *
+     * @param \CodersLabBundle\Entity\User $users
+     * @return Person
+     */
+    public function addUser(\CodersLabBundle\Entity\User $users)
+    {
+        $this->users[] = $users;
+
+        return $this;
+    }
+
+    /**
+     * Remove users
+     *
+     * @param \CodersLabBundle\Entity\User $users
+     */
+    public function removeUser(\CodersLabBundle\Entity\User $users)
+    {
+        $this->users->removeElement($users);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 }

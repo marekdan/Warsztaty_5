@@ -1,2 +1,3 @@
 <a href="{{ path('showPerson',{'id':person.id}) }}">{{ person.name }}</a><br>
 <a href="{{ path('deletePerson',{'id':person.id}) }}">DELETE</a>
+<a href="{{ path('addPersonToUser', {'personId':person.id, 'userId':app.user.id}) }}">ADD CONTACT</a>

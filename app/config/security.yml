@@ -15,10 +15,16 @@ security:
         main:
             pattern: ^/
             form_login:
+                login_path: /login
+                default_target_path: /mainSite
+                always_use_default_target_path: false
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
 
-            logout:       true
+            logout:
+                path: /logout
+                target: /mainSite
+
             anonymous:    true
 
     access_control:

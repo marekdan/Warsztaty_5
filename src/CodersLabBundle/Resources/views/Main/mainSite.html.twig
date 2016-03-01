@@ -1,0 +1,10 @@
+{% include 'CodersLabBundle:User:logInOut.html.twig' %}
+<div>
+    Website ideal for you<br>
+    u can find here app for your contacts
+</div>
+{% if app.user is not null %}
+    <a href="{{ path('showAll') }}">Manage Contacts</a><br>
+{% else %}
+    To menage contacts login first
+{% endif %}
