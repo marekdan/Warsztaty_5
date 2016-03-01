@@ -4,6 +4,7 @@ namespace CodersLabBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Email
@@ -33,8 +34,12 @@ class Email {
      * @var string
      *
      * @ORM\Column(name="type", type="string", length=50)
+     * @Assert\NotBlank( message = "Type can't be empty")
+     * @Assert\Choice( choices = {"Personal", "Business"}, message = "Choose correct type")
      */
     private $type;
+    //@Assert\Length( min = 2, minMessage = "Too short")
+
 
     /**
      * @ORM\ManyToOne(targetEntity="Person", inversedBy="emails")

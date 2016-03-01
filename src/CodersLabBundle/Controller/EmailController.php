@@ -15,8 +15,8 @@ class EmailController extends Controller {
 
     public function generateFormEmail($email, $action) {
         $form = $this->createFormBuilder($email);
-        $form->add('emailAdress', 'text');
-        $form->add('type', 'text');
+        $form->add('emailAdress', 'text', ['required'=>false]);
+        $form->add('type', 'text',['required'=>false]);
         $form->add('save', 'submit', ['label' => 'Submit']);
         $form->setAction($action);
 
@@ -51,7 +51,15 @@ class EmailController extends Controller {
         $form = $this->generateFormEmail($email, $action);
         $form->handleRequest($req);
 
-        if ($form->isSubmitted()) {
+//        $validator = $this->get('validator');
+//
+//        $errors = $validator->validate($email);
+//        if (count($errors) > 0) {
+//            return $this->render("CodersLabBundle:Email:errorEmail.html.twig", ['errors'=>$errors]);
+//            //return new Response('Blad');
+//        }
+
+        if ($form->isSubmitted() && ($form->isValid())) {
             $repo = $this->getDoctrine()->getRepository('CodersLabBundle:Person');
             $person = $repo->find($personId);
 
@@ -60,9 +68,10 @@ class EmailController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($email);
             $em->flush();
+            return $this->redirectToRoute('showPerson', ['id' => $personId]);
         }
 
-        return $this->redirectToRoute('showPerson', ['id' => $personId]);
+        return $this->render("CodersLabBundle:Email:newEmail.html.twig", ['form' => $form->createView()]);
     }
 
     /**
