@@ -4,6 +4,7 @@ namespace CodersLabBundle\Controller;
 
 
 use CodersLabBundle\Entity\Person;
+use CodersLabBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -29,31 +30,41 @@ class PersonController extends Controller {
     }
 
     /**
-     * @Route("/newPerson", name = "newPerson")
+     * @Route("/newPerson/{userId}", name = "newPerson")
      * @Method("GET")
      * @Template()
      */
-    public function newPersonAction() {
+    public function newPersonAction($userId) {
         $person = new Person();
 
         $action = $this->generateUrl('newPerson');
         $personForm = $this->generateFormPerson($person, $action);
 
+        $repoUser = $this->getDoctrine()->getRepository('CodersLabBundle:User');
+        $user = $repoUser->find($userId);
+
+        $person->addUser($user);
+
         return ['form' => $personForm->createView()];
     }
 
     /**
-     * @Route("/newPerson", name = "newPersonSave")
+     * @Route("/newPerson/{userId}", name = "newPersonSave")
      * @Method("POST")
      * @Template("CodersLabBundle:Person:newPerson.html.twig")
      */
-    public function newPersonSaveAction(Request $req) {
+    public function newPersonSaveAction(Request $req, $userId) {
         $person = new Person();
 
         $action = $this->generateUrl('newPerson');
         $form = $this->generateFormPerson($person, $action);
 
         $form->handleRequest($req);
+
+        $repoUser = $this->getDoctrine()->getRepository('CodersLabBundle:User');
+        $user = $repoUser->find($userId);
+
+        $person->addUser($user);
 
         if ($form->isSubmitted()) {
             $em = $this->getDoctrine()->getManager();

@@ -44,7 +44,7 @@ class MainController extends Controller {
     }
 
     /**
-     * @Route("/showContacts/{userId}")
+     * @Route("/showContacts/{userId}", name = "showContacts")
      * @Template()
      */
     public function showContactsAction($userId){

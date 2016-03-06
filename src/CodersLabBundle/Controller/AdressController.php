@@ -75,7 +75,6 @@ class AdressController extends Controller {
     public function modifyAddressAction($addressId, $personId) {
         $repo = $this->getDoctrine()->getRepository('CodersLabBundle:Adress');
         $address = $repo->find($addressId);
-
         $action = $this->generateUrl('modifyAddress', ['addressId' => $addressId, 'personId' => $personId]);
         $addressForm = $this->generateFormAddress($address, $action);
 

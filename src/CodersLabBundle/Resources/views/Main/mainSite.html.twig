@@ -4,7 +4,8 @@
     u can find here app for your contacts
 </div>
 {% if app.user is not null %}
-    <a href="{{ path('showAll') }}">Manage Contacts</a><br>
+    {#<a href="{{ path('showAll') }}">Manage Contacts</a><br>#}
+    <a href="{{ path('showContacts', {'userId':app.user.id}) }}">Manage Contacts</a><br>
 {% else %}
     To menage contacts login first
 {% endif %}
